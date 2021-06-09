@@ -19,8 +19,19 @@ class GameState():
             
             
         ]
+        self.moveFunctions = {
+            'p':self.getPawnMoves,
+            'R': self.getRookMoves,
+            'N':self.getKnightMoves,
+            'B': self.getBishopMoves,
+            'Q': self.getQueenMoves,
+            'K':self.getKingMoves
+        }
+
+
         self.whiteToMove = True
         self.moveLogs = []
+
 
     """
     Take a Move as a parameter and executes it  (this will not work for castling, pawn promotion and en-passant move
@@ -56,11 +67,7 @@ class GameState():
                 # print("Hello")
                 if (turn == 'w' and self.whiteToMove) or (turn == 'b' and not self.whiteToMove):
                     piece = self.board[r][c][1]
-
-                    if piece == 'p':
-                        self.getPawnMoves(r,c,moves)
-                    elif piece == 'R':
-                        self.getRookMoves(r,c,moves)
+                    self.moveFunctions[piece](r,c,moves) # calls the apropriate move function based on piece type
         return moves
     """
     Get all pawn moves for the pawn located at row, col and add these moves to list
@@ -79,7 +86,8 @@ class GameState():
                         moves.append(Move((r,c),(r-1,c-1),self.board))
 
                 if c+1 <= 7: # captures to the right
-                    moves.append(Move((r,c),(r-1,c+1),self.board))
+                    if self.board[r - 1][c + 1][0] == 'b':
+                        moves.append(Move((r,c),(r-1,c+1),self.board))
 
             else:   # Black to move
                 if self.board[r + 1][c] == "--":  # 1 square pawn
@@ -88,18 +96,51 @@ class GameState():
                         moves.append(Move((r, c), (r + 2, c), self.board))
 
                 if c - 1 >= 0:  # captures to the left
-                    if self.board[r +1][c - 1][0] == 'b':  # enemy piece to capture
+                    print("Capture to left")
+                    if self.board[r +1][c - 1][0] == 'w':  # enemy piece to capture
                         moves.append(Move((r, c), (r + 1, c - 1), self.board))
 
                 if c + 1 <= 7:  # captures to the right
-                    moves.append(Move((r, c), (r + 1, c + 1), self.board))
+                    print("Capture to right")
+
+                    if self.board[r +1][c + 1][0] == 'w':  # enemy piece to capture
+                        moves.append(Move((r, c), (r + 1, c + 1), self.board))
 
     """
         Get all rook moves for the rook located at row, col and add these moves to list
 
-        """
+    """
 
     def getRookMoves(self, r, c, moves):
+        pass
+
+    """
+        Get all bishop moves for the bishop located at row, col and add these moves to list
+
+    """
+
+    def getBishopMoves(self, r, c, moves):
+        pass
+    """
+        Get all Knight moves for the Knight located at row, col and add these moves to list
+
+    """
+
+    def getKnightMoves(self, r, c, moves):
+        pass
+    """
+        Get all Queen moves for the Queen located at row, col and add these moves to list
+
+    """
+
+    def getQueenMoves(self, r, c, moves):
+        pass
+    """
+        Get all King moves for the King located at row, col and add these moves to list
+
+    """
+
+    def getKingMoves(self, r, c, moves):
         pass
 
 
