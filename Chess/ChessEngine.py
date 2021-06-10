@@ -10,10 +10,10 @@ class GameState():
         self.board = [
             ["bR","bN","bB","bQ","bK","bB","bN","bR"],
             ["bp","bp","bp","bp","bp","bp","bp","bp"],
-            ["--","--","--","wp","--","--","--","--"],
+            ["--","--","--","--","--","--","bQ","--"],
             ["--","--","--","--","--","--","--","--"],
+            ["--","--","--","wQ","--","--","--","--"],
             ["--","--","--","--","--","--","--","--"],
-            ["--","--","--","--","bp","--","--","--"],
             ["wp","wp","wp","wp","wp","wp","wp","wp"],
             ["wR","wN","wB","wQ","wK","wB","wN","wR"],
             
@@ -112,7 +112,123 @@ class GameState():
     """
 
     def getRookMoves(self, r, c, moves):
-        pass
+        if self.board[r][c][0]=='w': # For white Rook
+            # Backward Rook Move
+            row = r+1
+            col = c
+
+            while row<=7:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                row = row+1
+
+            # Forward Rook Move
+            row = r - 1
+            col = c
+
+            while row >= 0:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                row = row - 1
+
+
+            # Leftwards Rook Move
+            row = r
+            col = c-1
+
+            while col >= 0:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                col = col - 1
+
+            # RightWards Rook Move
+            row = r
+            col = c+1
+
+            while col<=7:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                col = col+1
+
+        else: # For Black Rook Move
+            # Backward Rook Move
+            row = r-1
+            col = c
+
+            while row>=0:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                row = row-1
+
+            # Forward Rook Move
+            row = r + 1
+            col = c
+
+            while row <= 7:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                row = row + 1
+
+
+            # Leftwards Rook Move
+            row = r
+            col = c-1
+
+            while col >= 0:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                col = col - 1
+
+            # RightWards Rook Move
+            row = r
+            col = c+1
+
+            while col<=7:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                col = col+1
+
+
 
     """
         Get all bishop moves for the bishop located at row, col and add these moves to list
@@ -120,7 +236,131 @@ class GameState():
     """
 
     def getBishopMoves(self, r, c, moves):
-        pass
+        if self.board[r][c][0]=='w':  # for white's bishops
+            # Top right Bishop Move
+            row = r-1
+            col = c+1
+
+            while row>=0 and col <= 7:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                row = row-1
+                col = col+1
+
+            #  Top left Bishop Move
+            row = r - 1
+            col = c-1
+
+            while row >= 0 and col>=0:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                row = row - 1
+                col = col-1
+
+
+            # Down Right Bishop Move
+            row = r+1
+            col = c+1
+
+            while col <= 7 and  row<=7:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                col = col + 1
+                row = row+1
+
+            # Down Left Bishop Move
+            row = r+1
+            col = c-1
+
+            while col>=0 and row<=7:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                col = col-1
+                row = row+1
+
+        else:  # for black's bishops
+
+            # Top right Bishop Move
+            row = r-1
+            col = c+1
+
+            while row>=0 and col <= 7:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                row = row-1
+                col = col+1
+
+            #  Top left Bishop Move
+            row = r - 1
+            col = c-1
+
+            while row >= 0 and col>=0:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                row = row - 1
+                col = col-1
+
+
+            # Down Right Bishop Move
+            row = r+1
+            col = c+1
+
+            while col <= 7 and  row<=7:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                col = col + 1
+                row = row+1
+
+            # Down Left Bishop Move
+            row = r+1
+            col = c-1
+
+            while col>=0 and row<=7:
+
+                if self.board[row][col][0] == 'b':
+                    break
+                if self.board[row][col][0] == 'w':
+                    moves.append(Move((r,c),(row,col),self.board))
+                    break
+                moves.append((Move((r,c),(row,col),self.board)))
+                col = col-1
+                row = row+1
+
     """
         Get all Knight moves for the Knight located at row, col and add these moves to list
 
@@ -134,14 +374,318 @@ class GameState():
     """
 
     def getQueenMoves(self, r, c, moves):
-        pass
+        if self.board[r][c][0] == 'w':  # For white Queen
+
+            ## Vertical and Horizontal Movement of Queen
+
+            # Backward Queen Move
+            row = r + 1
+            col = c
+
+            while row <= 7:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                row = row + 1
+
+            # Forward Queen Move
+            row = r - 1
+            col = c
+
+            while row >= 0:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                row = row - 1
+
+            # Leftwards Queen Move
+            row = r
+            col = c - 1
+
+            while col >= 0:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                col = col - 1
+
+            # RightWards Queen Move
+            row = r
+            col = c + 1
+
+            while col <= 7:
+
+                if self.board[row][col][0] == 'w':
+                    break
+                if self.board[row][col][0] == 'b':
+                    moves.append(Move((r, c), (row, col), self.board))
+                    break
+                moves.append((Move((r, c), (row, col), self.board)))
+                col = col + 1
+
+            ## Diagonal Movement of The Queen:
+                # Top right Queen Move
+                row = r - 1
+                col = c + 1
+
+                while row >= 0 and col <= 7:
+
+                    if self.board[row][col][0] == 'w':
+                        break
+                    if self.board[row][col][0] == 'b':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    row = row - 1
+                    col = col + 1
+
+                #  Top left Queen Move
+                row = r - 1
+                col = c - 1
+
+                while row >= 0 and col >= 0:
+
+                    if self.board[row][col][0] == 'w':
+                        break
+                    if self.board[row][col][0] == 'b':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    row = row - 1
+                    col = col - 1
+
+                # Down Right Queen Move
+                row = r + 1
+                col = c + 1
+
+                while col <= 7 and row <= 7:
+
+                    if self.board[row][col][0] == 'w':
+                        break
+                    if self.board[row][col][0] == 'b':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    col = col + 1
+                    row = row + 1
+
+                # Down Left Queen Move
+                row = r + 1
+                col = c - 1
+
+                while col >= 0 and row <= 7:
+
+                    if self.board[row][col][0] == 'w':
+                        break
+                    if self.board[row][col][0] == 'b':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    col = col - 1
+                    row = row + 1
+
+        else:  # For Black Queen Move
+
+                ## For Vrtical Movement Of Queen
+
+                # Backward Queen Move
+                row = r - 1
+                col = c
+
+                while row >= 0:
+
+                    if self.board[row][col][0] == 'b':
+                        break
+                    if self.board[row][col][0] == 'w':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    row = row - 1
+
+                # Forward Queen Move
+                row = r + 1
+                col = c
+
+                while row <= 7:
+
+                    if self.board[row][col][0] == 'b':
+                        break
+                    if self.board[row][col][0] == 'w':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    row = row + 1
+
+                # Leftwards Queen Move
+                row = r
+                col = c - 1
+
+                while col >= 0:
+
+                    if self.board[row][col][0] == 'b':
+                        break
+                    if self.board[row][col][0] == 'w':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    col = col - 1
+
+                # RightWards Queen Move
+                row = r
+                col = c + 1
+
+                while col <= 7:
+
+                    if self.board[row][col][0] == 'b':
+                        break
+                    if self.board[row][col][0] == 'w':
+                        moves.append(Move((r, c), (row, col), self.board))
+                        break
+                    moves.append((Move((r, c), (row, col), self.board)))
+                    col = col + 1
+
+                    ## Diagonal Movement of Queen
+
+                    # Top right Queen Move
+                    row = r - 1
+                    col = c + 1
+
+                    while row >= 0 and col <= 7:
+
+                        if self.board[row][col][0] == 'b':
+                            break
+                        if self.board[row][col][0] == 'w':
+                            moves.append(Move((r, c), (row, col), self.board))
+                            break
+                        moves.append((Move((r, c), (row, col), self.board)))
+                        row = row - 1
+                        col = col + 1
+
+                    #  Top left Queen Move
+                    row = r - 1
+                    col = c - 1
+
+                    while row >= 0 and col >= 0:
+
+                        if self.board[row][col][0] == 'b':
+                            break
+                        if self.board[row][col][0] == 'w':
+                            moves.append(Move((r, c), (row, col), self.board))
+                            break
+                        moves.append((Move((r, c), (row, col), self.board)))
+                        row = row - 1
+                        col = col - 1
+
+                    # Down Right Queen Move
+                    row = r + 1
+                    col = c + 1
+
+                    while col <= 7 and row <= 7:
+
+                        if self.board[row][col][0] == 'b':
+                            break
+                        if self.board[row][col][0] == 'w':
+                            moves.append(Move((r, c), (row, col), self.board))
+                            break
+                        moves.append((Move((r, c), (row, col), self.board)))
+                        col = col + 1
+                        row = row + 1
+
+                    # Down Left Queen Move
+                    row = r + 1
+                    col = c - 1
+
+                    while col >= 0 and row <= 7:
+
+                        if self.board[row][col][0] == 'b':
+                            break
+                        if self.board[row][col][0] == 'w':
+                            moves.append(Move((r, c), (row, col), self.board))
+                            break
+                        moves.append((Move((r, c), (row, col), self.board)))
+                        col = col - 1
+                        row = row + 1
+
     """
         Get all King moves for the King located at row, col and add these moves to list
 
     """
 
     def getKingMoves(self, r, c, moves):
-        pass
+        if self.board[r][c][0] == 'w': # for the white king
+            # Horizontal and Vertical Movement of king
+
+            # backwards move of king
+            row = r+1
+            col = c
+            if row <=7:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r,c),(row,col),self.board))
+
+            # Forward move of king
+            row = r-1
+            col = c
+            if row >= 0:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+
+            # leftwards move of king
+            row = r
+            col = c-1
+            if col >= 0:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+
+            # rightwards move of king
+            row = r
+            col = c+1
+            if col <= 7:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+
+            # Diagonal Motion of the king
+
+            # Top RightWard Motion of the King
+            row = r-1
+            col = c+1
+            if col <= 7 and row>=0:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+
+
+            # Top LeftWard Motion of the King
+            row = r-1
+            col = c-1
+            if col >= 0 and row>=0:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+
+
+            # Down RightWard Motion of the King
+            row = r+1
+            col = c+1
+            if col <= 7 and row<=7:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
+
+
+            # Down LeftWard Motion of the King
+            row = r+1
+            col = c-1
+            if row <= 7 and col>=0:
+                if not self.board[row][col][0] == 'w':
+                    moves.append(Move((r, c), (row, col), self.board))
 
 
 class Move():
