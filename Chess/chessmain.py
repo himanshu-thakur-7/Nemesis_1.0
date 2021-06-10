@@ -47,12 +47,19 @@ def main():
                 row = location[1] // SQ_SIZE
                 if squareSelected == (row, col):  # user clicked same sq twice
                     squareSelected = ()  # reset (undo) the currently selected
+                    playerClicks = []
+                    print("Piece Deselected")
                 else:
-                    squareSelected = (row, col)
-                    playerClicks.append(squareSelected)
-                if len(playerClicks)==2:   # after second click
+                    if not (gs.board[row][col] == "--" and len(playerClicks)==0):
+                        squareSelected = (row, col)
+                        playerClicks.append(squareSelected)
+                        if len(playerClicks) ==1:
+                            print("Piece Selected")
+                if len(playerClicks)==2 :   # after second click
+                    print("Move added")
                     move = ChessEngine.Move(playerClicks[0],playerClicks[1],gs.board)
-                    print(move.getChessNotation())
+
+                    # print(move.getChessNotation())
                     if move in validMoves:
                         gs.makeMove(move)
                         moveMade = True
